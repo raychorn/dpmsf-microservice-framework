@@ -1,0 +1,28 @@
+### See also: https://github.com/Huachao/vscode-restclient
+
+GET http://127.0.0.1:8088/rest/services/__dir__/ HTTP/1.1
+
+###
+
+GET http://127.0.0.1:8088/rest/services/hello-world/ HTTP/1.1
+
+###
+
+GET http://127.0.0.1:8088/rest/services/bar-none/ HTTP/1.1
+
+###
+
+GET http://127.0.0.1:8088/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###
+
+POST http://127.0.0.1:8088/rest/services/sample-one/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four"
+}
