@@ -168,6 +168,68 @@ def sample1(*args, **kwargs):
     return response
 
 
+@expose.endpoint(method='PUT', API='sample-one2')
+def sample12(*args, **kwargs):
+    '''
+    This is an exposed function that is accessible via POST via the "sample-one" API.
+    
+    When query string parameters appear they are mixed into the payload.
+    
+    Samples:
+    
+        PUT http://127.0.0.1:8080/rest/services/sample-one/?a=1&b=2&c=3&d=4 HTTP/1.1
+        content-type: application/json
+
+        {
+            "args": [1,2,3,4,5,6],
+            "name1": "one",
+            "name2": "two",
+            "name3": "three",
+            "name4": "four"
+        }
+
+    '''
+    response = {}
+    response['args'] = {}
+    for i, arg in enumerate(args):
+        response.get('args', {})[i] = arg
+    response['kwargs'] = {}
+    for k,v in kwargs.items():
+        response.get('kwargs', {})[k] = v
+    return response
+
+
+@expose.endpoint(method='DELETE', API='sample-one2a')
+def sample12a(*args, **kwargs):
+    '''
+    This is an exposed function that is accessible via POST via the "sample-one" API.
+    
+    When query string parameters appear they are mixed into the payload.
+    
+    Samples:
+    
+        PUT http://127.0.0.1:8080/rest/services/sample-one/?a=1&b=2&c=3&d=4 HTTP/1.1
+        content-type: application/json
+
+        {
+            "args": [1,2,3,4,5,6],
+            "name1": "one",
+            "name2": "two",
+            "name3": "three",
+            "name4": "four"
+        }
+
+    '''
+    response = {}
+    response['args'] = {}
+    for i, arg in enumerate(args):
+        response.get('args', {})[i] = arg
+    response['kwargs'] = {}
+    for k,v in kwargs.items():
+        response.get('kwargs', {})[k] = v
+    return response
+
+
 @expose.endpoint(method='POST', API='sample-two')
 def sample2(*args, **kwargs):
     '''

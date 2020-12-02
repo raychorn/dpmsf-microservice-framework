@@ -32,7 +32,7 @@ GET http://127.0.0.1:8088/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###
 
-POST http://127.0.0.1:8088/rest/services/sample-one/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:8088/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -45,7 +45,20 @@ content-type: application/json
 
 ###
 
-PUT http://127.0.0.1:8088/rest/services/sample-two/2/ HTTP/1.1
+PUT http://127.0.0.1:8088/rest/services/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,7],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "fourty"
+}
+
+###
+
+DELETE http://127.0.0.1:8088/rest/services/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -76,4 +89,17 @@ GET http://127.0.0.1:8088/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10
 ###
 
 GET http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###
+
+DELETE http://127.0.0.1:8088/rest/services/modules1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,7],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "fourty"
+}
 

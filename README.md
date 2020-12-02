@@ -234,6 +234,18 @@ GET http://127.0.0.1:8080/rest/services/product_v2/api-name/update/123456789/?a=
 API Versioning is optional however it can also be used to disambiguate API Names that may be the same in multiple modules however "API=" can also be used to 
 differentiate and resolve this same issue.
 
+### Unit Tests +++
+
 ## Deployment <a name = "deployment"></a>
 
 Deploy as you wish.
+
+### oAuth
+
+If you want oAuth you may deploy oAuth via a Reverse-Proxy. oAuth is not sufficient for web-based security and it will not be supported by any frameworks published via [raychorn @ github](https://github.com/raychorn).
+
+Whenever github sponsorship allows this repo to be sponsored you may have the option of sponsoring a strong form of web security in the form of Signed (Randomly encrypted) Single-Use Temporal Tokens that remain valid for a short period of time, say 30 seconds.  This option will be delivered with a Command Line interface to produce tokens for those who have clients not running via a browser. For browser-based clients there will be a WASM module that produces Tokens and of course the RESTFul Interface will be configurable to either require tokens or not.
+
+The major weakness of oAuth is the lack of a Temporal component.
+
+The client and server should work together using an mutually agreeable method of both validating and producing Tokens on the fly.  This is not the way oAuth works.
