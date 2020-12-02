@@ -1,10 +1,26 @@
-### See also: https://github.com/Huachao/vscode-restclient
 
 GET http://127.0.0.1:8088/rest/services/__dir__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/ HTTP/1.1
+GET http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###
+
+GET http://127.0.0.1:8088/rest/services/hello-world/2/3/4/5/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###  The following should fail with a 404.
+
+POST http://127.0.0.1:8088/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four"
+}
 
 ###
 
@@ -26,3 +42,38 @@ content-type: application/json
     "name3": "three",
     "name4": "four"
 }
+
+###
+
+PUT http://127.0.0.1:8088/rest/services/sample-two/2/ HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,7],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "fourty"
+}
+
+###
+
+DELETE http://127.0.0.1:8088/rest/services/sample-two/2/ HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6,7],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four"
+}
+
+###  The following demo API Versioning.
+
+GET http://127.0.0.1:8088/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###
+
+GET http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+

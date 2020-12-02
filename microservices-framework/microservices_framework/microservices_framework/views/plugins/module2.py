@@ -76,8 +76,8 @@ Contact the developer (raychorn@gmail.com) for any specific requirements you may
 from vyperlogix.decorators import expose
 
 
-@expose.endpoint(method='GET', API='hello-world')
-def foo(*args, **kwargs):
+@expose.endpoint(method='GET', API='hello-world2')
+def foo2(*args, **kwargs):
     '''
     Notice the @expose.endpoint(method='GET', API='hello-world') decorator.
     
@@ -119,8 +119,8 @@ def private_function():
     return 'again'
 
 
-@expose.endpoint(method='GET', API='bar-none')
-def bar(*args, **kwargs):
+@expose.endpoint(method='GET', API='bar2-none')
+def bar2():
     '''
     This is an exposed function that is accessible via GET via the "bar-none" API.
     
@@ -137,8 +137,8 @@ def bar(*args, **kwargs):
 my_var = 1.0 # global variables are not exposed via the RESTful Interface.
 
 
-@expose.endpoint(method='POST', API='sample-one')
-def sample1(*args, **kwargs):
+@expose.endpoint(method='POST', API='sample-one2')
+def sample12(*args, **kwargs):
     '''
     This is an exposed function that is accessible via POST via the "sample-one" API.
     
@@ -168,8 +168,8 @@ def sample1(*args, **kwargs):
     return response
 
 
-@expose.endpoint(method='POST', API='sample-two')
-def sample2(*args, **kwargs):
+@expose.endpoint(method='POST', API='sample-two2')
+def sample22(*args, **kwargs):
     '''
     This is an exposed function that is accessible via POST via the "sample-one" API.
     
