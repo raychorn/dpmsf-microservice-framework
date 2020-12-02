@@ -46,11 +46,64 @@ build a working RESTful interface with just GET and POST, believe it or not.  Oh
 feelings about this but trust me when I say I was more than able to build a complete CRUD Interface using just one POST endpoint.  Doing this
 made the code smaller and easier to maintain than the alternatives.
 
-Rules:
+HTTP Methods:
+
+```
+GET
+The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
+
+GET is supported.
+```
+
+HEAD is not supported.
+The HEAD method asks for a response identical to that of a GET request, but without the response body.
+
+```
+POST
+The POST method is used to submit an entity to the specified resource, often causing a change in state or side effects on the server.
+
+POST is supported.
+```
+
+```
+PUT
+The PUT method replaces all current representations of the target resource with the request payload.
+
+PUT is supported.
+```
+
+```
+DELETE
+The DELETE method deletes the specified resource.
+
+DELETE is supported.
+```
+
+CONNECT is not supported.
+The CONNECT method establishes a tunnel to the server identified by the target resource.
+
+OPTIONS is not supported.
+The OPTIONS method is used to describe the communication options for the target resource.
+
+TRACE is not supported.
+The TRACE method performs a message loop-back test along the path to the target resource.
+
+PATCH is not supported.
+The PATCH method is used to apply partial modifications to a resource.
+
+
+### Rules:
 
 GET functions take parameters as follows:
 
     GET http://127.0.0.1:8080/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+    OR
+
+    GET http://127.0.0.1:8080/rest/services/hello-world/slug-or-numbers/ HTTP/1.1
+
+    where the kwargs will have the query string or the extra parameters.
+
 
 POST functions take parameters as follows:
 
@@ -81,7 +134,7 @@ You may use the following endpoint to discover modules and endpoints known to th
 
     GET http://127.0.0.1:8080/rest/services/__dir__/ HTTP/1.1
     
-Plugins:
+### Plugins:
 
 Plug your modules into the folder called "plugins".  While the "plugins" folder could be placed anywhere it was placed under the "views" folder to facilitate
 uploading modules via a RESTful Interface, at some point, however the version you are using does not support this.  A future version may have this feature in
@@ -120,7 +173,66 @@ pip install -r requirements.txt
 
 ## Usage <a name = "usage"></a>
 
-See [About](#about) for usage notes.
+See [About](#about) for more usage notes.
+
+### URL Parameters  - See the .env file
+
+```
+NUM_URL_PARMS is the number of URL parameters - the default is 10 however this number can be adjusted.
+```
+
+### Named URL Parameters - See the .env file
+
+The following states there are 10 URL Parameters and they are named.  By default all URL Parameters are of type "slug" which means they can be numbers, letters or dashes or any combination of these.
+
+```
+NUM_URL_PARMS = 10  # Can be any number however the default is 10.
+URL_PARM1 = parm_1  # Do not use dashes ("-") for parameter names. 
+URL_PARM2 = parm_2
+URL_PARM3 = parm_3
+URL_PARM4 = parm_4
+URL_PARM5 = parm_5
+URL_PARM6 = parm_6
+URL_PARM7 = parm_7
+URL_PARM8 = parm_8
+URL_PARM9 = parm_9
+URL_PARM10 = parm_10
+```
+
+These values can be dynamically modified via a POST, for instance, or PUT (PUTs are handled like POSTs).
+
+URL Parameters are presented to your functions in the form of **kwargs, much like Query Parameters and POST/PUT/DELETE payload variables.
+
+### API Versioning for a single API
+
+Put your Version 1 functions in a module named v1 and then use the following URL Pattern:
+
+```
+GET http://127.0.0.1:8080/rest/services/v1/api-name/update/123456789/?a=1&b=2&c=3&d=4 HTTP/1.1
+```
+
+Put your Version 2 functions in a module named v2 and then use the following URL Pattern:
+
+```
+GET http://127.0.0.1:8080/rest/services/v2/api-name/update/123456789/?a=1&b=2&c=3&d=4 HTTP/1.1
+```
+
+### API Versioning for multiple APIs
+
+Put your Version 1 functions in a module named product_v1 and then use the following URL Pattern:
+
+```
+GET http://127.0.0.1:8080/rest/services/product_v1/api-name/update/123456789/?a=1&b=2&c=3&d=4 HTTP/1.1
+```
+
+Put your Version 2 functions in a module named product_v2 and then use the following URL Pattern:
+
+```
+GET http://127.0.0.1:8080/rest/services/product_v2/api-name/update/123456789/?a=1&b=2&c=3&d=4 HTTP/1.1
+```
+
+API Versioning is optional however it can also be used to disambiguate API Names that may be the same in multiple modules however "API=" can also be used to 
+differentiate and resolve this same issue.
 
 ## Deployment <a name = "deployment"></a>
 
