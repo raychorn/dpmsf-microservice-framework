@@ -12,7 +12,7 @@ TESTS=$(find $CURDIR -name test_restful.py | grep test_restful.py)
 echo "TESTS -> $TESTS"
 
 echo "Sleeping for 10 seconds…"
-sleep 20
+sleep 10
 echo "Completed"
 
 pytest $TESTS -v

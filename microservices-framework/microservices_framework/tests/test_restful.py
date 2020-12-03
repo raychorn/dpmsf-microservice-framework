@@ -4,6 +4,7 @@ import os
 import sys
 import signal
 import requests
+import time
 
 import traceback
 
@@ -23,6 +24,12 @@ def exception_hook(exc_type, exc_value, exc_traceback):
     )
 sys.excepthook = exception_hook
 
+url_prefix = 'http://127.0.0.1:8088'
+
+
+def is_url_ok(url):
+    r = requests.head(url)
+    return r.status_code == 200
 
 class TestClass:
     @classmethod
@@ -35,13 +42,19 @@ class TestClass:
 
     def setup_method(self, method):
         logger.info("setup_method for {}".format(method.__name__))
+        logger.info('setup_method :: BEGIN: Wait for server.')
+        count = 0
+        while (count < 30) and (not is_url_ok(url_prefix)):
+            time.sleep(1)
+            count += 1
+        logger.info('setup_method :: END!!! Waited for server for {} secs.'.format(count))
 
     def teardown_method(self, method):
         logger.info("teardown_method for {}".format(method.__name__))
 
     def test_get_directory(self):
         logger.info("BEGIN: test_get_directory")
-        response = requests.get('http://127.0.0.1:8088/rest/services/__dir__/')
+        response = requests.get('{}/rest/services/__dir__/'.format(url_prefix))
         logger.info("test_get_directory :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         #logger.info("test_get_directory :: response.json() -> {}".format(data))
@@ -56,7 +69,7 @@ class TestClass:
 
     def test_complex_get(self):
         logger.info("BEGIN: test_complex_get")
-        response = requests.get('http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4')
+        response = requests.get('{}/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix))
         logger.info("test_complex_get :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_complex_get #1.'
@@ -70,7 +83,7 @@ class TestClass:
 
     def test_post_404(self):
         logger.info("BEGIN: test_post_404")
-        response = requests.post('http://127.0.0.1:8088/rest/services/hello-world/?a=1&b=2&c=3&d=4', json={})
+        response = requests.post('{}/rest/services/hello-world/?a=1&b=2&c=3&d=4'.format(url_prefix), json={})
         logger.info("test_post_404 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 404, 'Problem with test_post_404 #1.'
@@ -88,7 +101,7 @@ class TestClass:
             "name4": "four"
         }
 
-        response = requests.post('http://127.0.0.1:8088/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4', json=payload)
+        response = requests.post('{}/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix), json=payload)
         logger.info("test_post_200 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_post_200 #1.'
@@ -109,7 +122,7 @@ class TestClass:
             "name4": "four"
         }
 
-        response = requests.put('http://127.0.0.1:8088/rest/services/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4', json=payload)
+        response = requests.put('{}/rest/services/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix), json=payload)
         logger.info("test_put_200 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_put_200 #1.'
@@ -130,7 +143,7 @@ class TestClass:
             "name4": "four"
         }
 
-        response = requests.delete('http://127.0.0.1:8088/rest/services/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4', json=payload)
+        response = requests.delete('{}/rest/services/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix), json=payload)
         logger.info("test_delete_200 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_delete_200 #1.'
@@ -144,7 +157,7 @@ class TestClass:
     
     def test_module1_complex_get(self):
         logger.info("BEGIN: test_module1_complex_get")
-        response = requests.get('http://127.0.0.1:8088/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4')
+        response = requests.get('{}/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix))
         logger.info("test_module1_complex_get :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_module1_complex_get #1.'
@@ -158,7 +171,7 @@ class TestClass:
 
     def test_module1_post_404(self):
         logger.info("BEGIN: test_module1_post_404")
-        response = requests.post('http://127.0.0.1:8088/rest/services/module1/hello-world/?a=1&b=2&c=3&d=4', json={})
+        response = requests.post('{}/rest/services/module1/hello-world/?a=1&b=2&c=3&d=4'.format(url_prefix), json={})
         logger.info("test_module1_post_404 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 404, 'Problem with test_module1_post_404 #1.'
@@ -176,7 +189,7 @@ class TestClass:
             "name4": "four"
         }
 
-        response = requests.post('http://127.0.0.1:8088/rest/services/module1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4', json=payload)
+        response = requests.post('{}/rest/services/module1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix), json=payload)
         logger.info("test_module1_post_200 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_module1_post_200 #1.'
@@ -197,7 +210,7 @@ class TestClass:
             "name4": "four"
         }
 
-        response = requests.put('http://127.0.0.1:8088/rest/services/module1/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4', json=payload)
+        response = requests.put('{}/rest/services/module1/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix), json=payload)
         logger.info("test_module1_put_200 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_module1_put_200 #1.'
@@ -218,7 +231,7 @@ class TestClass:
             "name4": "four"
         }
 
-        response = requests.delete('http://127.0.0.1:8088/rest/services/module1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4', json=payload)
+        response = requests.delete('{}/rest/services/module1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix), json=payload)
         logger.info("test_module1_delete_200 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
         assert response.status_code == 200, 'Problem with test_module1_delete_200 #1.'
