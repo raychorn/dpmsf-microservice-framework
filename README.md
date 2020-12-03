@@ -1,4 +1,4 @@
-# Dynamic Pluggable Microservices Framework
+# Dynamic Pluggable Microservices Framework - Deploy your own LAMBDA
 
 I was told this particular Microservices Framework was just not possible unless it generated code dynamically but dynamic code generation, 
 as cool as that can be, is just not required to get pluggable modules exposed as RESTful APIs.  Who knows maybe the Author, that's me,
@@ -16,6 +16,17 @@ and every token is unique with a limited lifespan and single-use.
 
 For database support.  MongoDB can be easily added and supported.  AWS DynamoDB can also be added and supported. And of course, any Database backend
 supported by Django can also be added and supported.
+
+### LAMDBA
+
+This is exacly how AWS Lambda works.  You upload a module that contains a Python function and they magically expose that function via the web or they run it in response to some kind of event.
+Either way, this is the magic behind AWS Lamdba for RESTful web services.  Serverless deployment of web services.  Build a Docker Container and put this framework inside and then spin-up your own Serverless Deployment of Python functions. Lamda.
+
+### Java or any other language other than Python
+
+Keep in mind you can easily deploy Java or whatever functions using this Lamda framework by using Python to run your non-Python functions.  Again, this is an easy way to get your non-Python functions deployed via RESTful goodness.  Obviously there is a performance hit when running non-Python functions but that's life in the big city, so to speak.
+
+### Docker Support coming soon.
 
 You can expect to see this git repo to appear in a Docker Image soon. Stay tuned.
 
