@@ -38,4 +38,4 @@ fi
 
 #python $FILE migrate -v 3 --settings microservices_framework.settings --pythonpath "./python_lib3"
 
-python $MANAGEPY runserver 0.0.0.0:8088 -v 3 --settings microservices_framework.settings --pythonpath "$LIB"
+python $MANAGEPY runserver 127.0.0.1:8088 -v 3 --settings microservices_framework.settings --pythonpath "$LIB"

@@ -31,6 +31,16 @@ def is_url_ok(url):
     r = requests.head(url)
     return r.status_code == 200
 
+
+def wait_for_server():
+    logger.info('setup_method :: BEGIN: Wait for server.')
+    count = 0
+    while (count < 30) and (not is_url_ok(url_prefix)):
+        time.sleep(1)
+        count += 1
+    logger.info('setup_method :: END!!! Waited for server for {} secs.'.format(count))
+
+
 class TestClass:
     @classmethod
     def setup_class(cls):
@@ -42,18 +52,13 @@ class TestClass:
 
     def setup_method(self, method):
         logger.info("setup_method for {}".format(method.__name__))
-        logger.info('setup_method :: BEGIN: Wait for server.')
-        count = 0
-        while (count < 30) and (not is_url_ok(url_prefix)):
-            time.sleep(1)
-            count += 1
-        logger.info('setup_method :: END!!! Waited for server for {} secs.'.format(count))
 
     def teardown_method(self, method):
         logger.info("teardown_method for {}".format(method.__name__))
 
     def test_get_directory(self):
         logger.info("BEGIN: test_get_directory")
+        wait_for_server()
         response = requests.get('{}/rest/services/__dir__/'.format(url_prefix))
         logger.info("test_get_directory :: response.status_code -> {}".format(response.status_code))
         data = response.json()
@@ -69,6 +74,7 @@ class TestClass:
 
     def test_complex_get(self):
         logger.info("BEGIN: test_complex_get")
+        wait_for_server()
         response = requests.get('{}/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix))
         logger.info("test_complex_get :: response.status_code -> {}".format(response.status_code))
         data = response.json()
@@ -83,6 +89,7 @@ class TestClass:
 
     def test_post_404(self):
         logger.info("BEGIN: test_post_404")
+        wait_for_server()
         response = requests.post('{}/rest/services/hello-world/?a=1&b=2&c=3&d=4'.format(url_prefix), json={})
         logger.info("test_post_404 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
@@ -93,6 +100,7 @@ class TestClass:
 
     def test_post_200(self):
         logger.info("BEGIN: test_post_200")
+        wait_for_server()
         payload = {
             "args": [1,2,3,4,5,6],
             "name1": "one",
@@ -114,6 +122,7 @@ class TestClass:
 
     def test_put_200(self):
         logger.info("BEGIN: test_put_200")
+        wait_for_server()
         payload = {
             "args": [1,2,3,4,5,6],
             "name1": "one",
@@ -135,6 +144,7 @@ class TestClass:
 
     def test_delete_200(self):
         logger.info("BEGIN: test_delete_200")
+        wait_for_server()
         payload = {
             "args": [1,2,3,4,5,6],
             "name1": "one",
@@ -157,6 +167,7 @@ class TestClass:
     
     def test_module1_complex_get(self):
         logger.info("BEGIN: test_module1_complex_get")
+        wait_for_server()
         response = requests.get('{}/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4'.format(url_prefix))
         logger.info("test_module1_complex_get :: response.status_code -> {}".format(response.status_code))
         data = response.json()
@@ -171,6 +182,7 @@ class TestClass:
 
     def test_module1_post_404(self):
         logger.info("BEGIN: test_module1_post_404")
+        wait_for_server()
         response = requests.post('{}/rest/services/module1/hello-world/?a=1&b=2&c=3&d=4'.format(url_prefix), json={})
         logger.info("test_module1_post_404 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
@@ -181,6 +193,7 @@ class TestClass:
 
     def test_module1_post_200(self):
         logger.info("BEGIN: test_module1_post_200")
+        wait_for_server()
         payload = {
             "args": [1,2,3,4,5,6],
             "name1": "one",
@@ -202,6 +215,7 @@ class TestClass:
 
     def test_module1_put_200(self):
         logger.info("BEGIN: test_module1_put_200")
+        wait_for_server()
         payload = {
             "args": [1,2,3,4,5,6],
             "name1": "one",
@@ -223,6 +237,7 @@ class TestClass:
 
     def test_module1_delete_200(self):
         logger.info("BEGIN: test_module1_delete_200")
+        wait_for_server()
         payload = {
             "args": [1,2,3,4,5,6],
             "name1": "one",
