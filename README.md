@@ -245,7 +245,15 @@ GET http://127.0.0.1:8080/rest/services/product_v2/api-name/update/123456789/?a=
 API Versioning is optional however it can also be used to disambiguate API Names that may be the same in multiple modules however "API=" can also be used to 
 differentiate and resolve this same issue.
 
-### Unit Tests +++
+### Unit Tests
+
+Issue runserver.sh to start the server.
+
+Issue run-tests.sh to run the tests.
+
+Running tests works best via VsCode with the server running side-by-side with the tests in two different terminals.
+
+The tests are known to execute with 100% success in my development environment.
 
 ## Deployment <a name = "deployment"></a>
 
