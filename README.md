@@ -22,6 +22,8 @@ supported by Django can also be added and supported.
 This is exacly how AWS Lambda works.  You upload a module that contains a Python function and they magically expose that function via the web or they run it in response to some kind of event.
 Either way, this is the magic behind AWS Lamdba for RESTful web services.  Serverless deployment of web services.  Build a Docker Container and put this framework inside and then spin-up your own Serverless Deployment of Python functions. Lamda.
 
+This form of Lambda Serverless Deployment can be done with any Language or runtime that can be executed via a command line by crafting a function that issues a command line to run a Java class or a Node web head or almost any other type of runtime.
+
 ### Java or any other language other than Python
 
 Keep in mind you can easily deploy Java or whatever functions using this Lamda framework by using Python to run your non-Python functions.  Again, this is an easy way to get your non-Python functions deployed via RESTful goodness.  Obviously there is a performance hit when running non-Python functions but that's life in the big city, so to speak.
