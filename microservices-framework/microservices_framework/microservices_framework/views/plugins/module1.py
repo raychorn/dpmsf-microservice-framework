@@ -75,8 +75,9 @@ Contact the developer (raychorn@gmail.com) for any specific requirements you may
 
 from vyperlogix.decorators import expose
 
+__alias__ = "v1"  # this is the module's alias wwhich couldl also be a version identifier to support API Versioning.
 
-@expose.endpoint(method='GET', API='hello-world')
+@expose.endpoint(method='GET|PUT|POST'.split('|'), API='hello-world')
 def foo(*args, **kwargs):
     '''
     Notice the @expose.endpoint(method='GET', API='hello-world') decorator.

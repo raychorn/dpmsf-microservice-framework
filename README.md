@@ -30,7 +30,108 @@ Keep in mind you can easily deploy Java or whatever functions using this Lamda f
 
 ### Docker Support coming soon.
 
-You can expect to see this git repo to appear in a Docker Image soon. Stay tuned.
+See the docker image you can use to kick the tires or maybe use it to deploy.
+
+```
+docker pull raychorn/microservices-framework:version-tag
+```
+login to the docker container as root, there is no password.
+
+Issue the following command to refresh the git clone:
+
+```
+git pull origin main
+```
+
+### URL Parameter Mapper
+
+Refer to the .env file for the following:
+
+```
+NUM_URL_PARMS = 10  # Can be any number however the default is 10.
+URL_PARM1 = parm_1  # Do not use dashes ("-") for parameter names. 
+URL_PARM2 = parm_2
+URL_PARM3 = parm_3
+URL_PARM4 = parm_4
+URL_PARM5 = parm_5
+URL_PARM6 = parm_6
+URL_PARM7 = parm_7
+URL_PARM8 = parm_8
+URL_PARM9 = parm_9
+URL_PARM10 = parm_10
+```
+
+Now consider the following REST POST, this cannot be done for GET but can be done for PUT and DELETE:
+
+```
+POST http://127.0.0.1:8088/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four",
+    "__map__" : {
+        "parm_1" : "p1",
+        "parm_2" : "p2",
+        "parm_3" : "p3",
+        "parm_4" : "p4",
+        "parm_5" : "p5",
+        "parm_6" : "p6",
+        "parm_7" : "p7",
+        "parm_8" : "p8",
+        "parm_9" : "p9",
+        "parm_10" : "p10"
+    }
+}
+```
+
+The __map__ tells the system to remap all the URL Parameters from their old names to their new names.  This should make it easier for people to intigrate this framework into their current code-base.  The __map__ is stripped from the payload for the response.  This means you can remap every request, if necessary.
+
+
+### Module Aliasing
+
+Place the following in your modules to create an alias for your module.
+
+```
+__alias__ = "v1"  # this is the module's alias wwhich couldl also be a version identifier to support API Versioning.
+```
+
+Now you have API Versioning or the ability to hide the names of your modules from the outside world.
+
+### Multiple HTTP Methods
+
+Consider the following function signature:
+
+```
+@expose.endpoint(method='GET|PUT|POST', API='hello-world')
+def foo(*args, **kwargs):
+    pass
+```
+
+Notice the multiple HTTP Methods listed for the "method=" parameter.
+
+The following function signature is also supported:
+
+```
+@expose.endpoint(method='GET|PUT|POST'.split('|'), API='hello-world')
+def foo(*args, **kwargs):
+    pass
+```
+
+Notice the multiple HTTP Methods listed for the "method=" parameter that is presented as a list.
+
+Therefore the following function signature is also supported:
+
+```
+@expose.endpoint(method=['GET', 'PUT', 'POST'], API='hello-world')
+def foo(*args, **kwargs):
+    pass
+```
+
+Notice the multiple HTTP Methods listed for the "method=" parameter that is now stated to be a list.
 
 ## Table of Contents
 

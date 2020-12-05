@@ -100,6 +100,71 @@ content-type: application/json
     "name1": "one",
     "name2": "two",
     "name3": "three",
-    "name4": "fourty"
+    "name4": "fourty",
+    "__map__" : {
+        "parm_1" : "p1",
+        "parm_2" : "p2",
+        "parm_3" : "p3",
+        "parm_4" : "p4",
+        "parm_5" : "p5",
+        "parm_6" : "p6",
+        "parm_7" : "p7",
+        "parm_8" : "p8",
+        "parm_9" : "p9",
+        "parm_10" : "p10"
+    }
 }
 
+### 
+
+GET http://127.0.0.1:8088/rest/services/__dir__/ HTTP/1.1
+
+###
+
+POST http://127.0.0.1:8088/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four",
+    "__map__" : {
+        "parm_1" : "p1",
+        "parm_2" : "p2",
+        "parm_3" : "p3",
+        "parm_4" : "p4",
+        "parm_5" : "p5",
+        "parm_6" : "p6",
+        "parm_7" : "p7",
+        "parm_8" : "p8",
+        "parm_9" : "p9",
+        "parm_10" : "p10"
+    }
+}
+
+###
+
+POST http://127.0.0.1:8088/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four",
+    "__map__" : {
+        "parm_1" : "p1",
+        "parm_2" : "p2",
+        "parm_3" : "p3",
+        "parm_4" : "p4",
+        "parm_5" : "p5",
+        "parm_6" : "p6",
+        "parm_7" : "p7",
+        "parm_8" : "p8",
+        "parm_9" : "p9",
+        "parm_10" : "p10"
+    }
+}
