@@ -93,8 +93,8 @@ class TestClass:
         response = requests.post('{}/rest/services/hello-world/?a=1&b=2&c=3&d=4'.format(url_prefix), json={})
         logger.info("test_post_404 :: response.status_code -> {}".format(response.status_code))
         data = response.json()
-        assert response.status_code == 404, 'Problem with test_post_404 #1.'
-        assert data.get('status', '').find(' is undefined for POST.') > -1, 'Problem with test_post_404 #2.'
+        assert response.status_code != 404, 'Problem with test_post_404 #1.'
+        assert data.get('status', '').find(' is undefined for POST.') == -1, 'Problem with test_post_404 #2.'
         logger.info("END!!! test_post_404")
 
 
