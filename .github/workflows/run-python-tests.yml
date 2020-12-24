@@ -17,8 +17,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-18.04, ubuntu-20.04] # [macos-latest, windows-latest, ubuntu-16.04, ubuntu-18.04, ubuntu-20.04]
-        python: [3.7.8, 3.8.6, 3.9]  # [2.7.18, 3.6.8, 3.7.9, 3.8.6, 3.9]
+        os: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, ubuntu-latest] # []
+        python: [3.6.12, 3.7.9, 3.8.7, 3.9.1]  # []
     steps:
     - uses: actions/checkout@v2
     - name: setup-python ${{ matrix.python }}
