@@ -75,6 +75,7 @@ Contact the developer (raychorn@gmail.com) for any specific requirements you may
 
 from vyperlogix.decorators import expose
 
+__ID__ = ''  # place your Tenant ID here. you get this when you register as a Tenant.
 
 @expose.endpoint(method='GET', API='hello-world2')
 def foo2(*args, **kwargs):
@@ -98,8 +99,10 @@ def foo2(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     response['response'] = 'hello-world'
+    
     return response
 
 
@@ -164,7 +167,8 @@ def sample12(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     return response
 
 
@@ -195,5 +199,6 @@ def sample22(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     return response

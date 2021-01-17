@@ -76,6 +76,7 @@ Contact the developer (raychorn@gmail.com) for any specific requirements you may
 from vyperlogix.decorators import expose
 
 __alias__ = "v1"  # this is the module's alias wwhich couldl also be a version identifier to support API Versioning.
+__ID__ = ''  # place your Tenant ID here. you get this when you register as a Tenant.
 
 @expose.endpoint(method='GET|PUT|POST'.split('|'), API='hello-world')
 def foo(*args, **kwargs):
@@ -99,7 +100,8 @@ def foo(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     response['response'] = 'hello-world'
     return response
 
@@ -165,7 +167,8 @@ def sample1(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     return response
 
 
@@ -196,7 +199,8 @@ def sample12(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     return response
 
 
@@ -227,7 +231,8 @@ def sample12a(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     return response
 
 
@@ -258,5 +263,6 @@ def sample2(*args, **kwargs):
         response.get('args', {})[i] = arg
     response['kwargs'] = {}
     for k,v in kwargs.items():
-        response.get('kwargs', {})[k] = v
+        if (k not in ['__request__']):
+            response.get('kwargs', {})[k] = v
     return response

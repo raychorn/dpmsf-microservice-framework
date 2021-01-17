@@ -30,11 +30,21 @@ Under-cut AWS for RESTful Lambda Functions
     - [Unit Tests](#unit-tests)
   - [The tests are known to execute with 100% success in my development environment.](#the-tests-are-known-to-execute-with-100-success-in-my-development-environment)
   - [Deployment](#deployment)
-  - [Deploy as you wish.](#deploy-as-you-wish)
+    - [Multi-Tenancy](#multi-tenancy)
+      - [Multi-Tenancy is now backed into the Framework](#multi-tenancy-is-now-backed-into-the-framework)
+        - [Admin Tenant](#admin-tenant)
+        - [Multi-Admin Installations](#multi-admin-installations)
     - [GCP](#gcp)
       - [Google Cloud Platform and Google App Engine](#google-cloud-platform-and-google-app-engine)
+      - [Google Compute Engine](#google-compute-engine)
+    - [AWS](#aws)
+    - [Azure](#azure)
+    - [The IBM Cloud](#the-ibm-cloud)
+    - [The Oracle Cloud](#the-oracle-cloud)
   - [Security](#security)
     - [oAuth](#oauth)
+    - [UUID](#uuid)
+    - [TOTP](#totp)
 
 ## Preface
 
@@ -456,7 +466,29 @@ The tests are known to execute with 100% success in my development environment.
 [Table of Contents](#table-of-contents)
 
 Deploy as you wish.
+
 ---
+### Multi-Tenancy
+
+#### Multi-Tenancy is now backed into the Framework
+
+There are two Tenant Roles. One is Admin and the other is Tenant.
+
+##### Admin Tenant
+
+The Admin Tenant is reserved for those who have cross over the pay-wall and are paying for their own installation or those who have downloaded the Open Source Version and have deployed it themselves. The entire Framework can be used via a single Admin UUID (See the .env file). The Admin identifies Modules using their Admin UUID, the same one found in the .env file.
+
+The Tenant is any non-Admin User who can share the framework with the Admin Tenant however Tenant Modules (identified by the UUID in each Module). Tenant Modules are untrusted and all Functions are executed in a Sandbox. The Sandbox is tightly controlled in terms of the Python Modules that can be used by untrusted Tenants.  Untrusted Tenants are allowed to use the Framework but their Functions are not-trusted.  Non-Admin Tenants should be encouraged to cross the pay-wall and pay-to-play. Once a non-Admin Tenant has been elevated to Admin Status a new Framework Installation will be created with a dedicated database. Future released may allow the Primary database to be shared among many Admins each with their own Framework to allow individual VMs to be better utilized however the inital Release does not support this. Stay tuned to this space.  Elevated Tenants are then disabled via the Web Interface in the Installation where they begam and they become Admins via a new Installation where they can host non-Admin Tenants and the process repeats.
+
+Future Release may feature a more optimized Sandbox however the process of dynamically creating the Sandbox does sap some performance from the system and this was done by design, initially, to entice non-Admin Tenants to upgrade and cross the pay-wall. This is how ever Cloud Provider creates and maintains their own pay-walls. Free Users are allowed but performance is limited until the pay-wall comes down.
+
+There can be only one Admin but many Tenants. For now.
+
+##### Multi-Admin Installations
+
+Little work would be required to support multiple Admin Tenants. This can be easily done by creating many "ADMIN" Collections in the "VYPERADMIN" database.  For instance, this could be done via a single "ADMIN" collection that holds the UUIDs for all of the Admin Tenants where each Admin Tenant has their own Collection perhaps in the form of "ADMIN-UUID" where the "UUID" is the actual UUID for each Admin. There is a single TENANT Collection that holds the UUIDs for all the non-Admin Tenants.  Stay tuned to this space for more.
+
+
 ### GCP
 
 #### Google Cloud Platform and Google App Engine
@@ -470,6 +502,37 @@ Use "gcprunner.sh" to test before deploying to GCP.
 ```
 Use "gcloud app deploy" to deploy.
 ```
+
+#### Google Compute Engine
+
+Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
+
+This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
+
+### AWS
+
+Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
+
+This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
+
+### Azure
+
+Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
+
+This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
+
+### The IBM Cloud
+
+Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
+
+This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
+
+### The Oracle Cloud
+
+Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
+
+This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
+
 
 ---
 
@@ -485,6 +548,14 @@ Whenever github sponsorship allows this repo to be sponsored you may have the op
 The major weakness of oAuth is the lack of a Temporal component.
 
 The client and server should work together using an mutually agreeable method of both validating and producing Tokens on the fly.  This is not the way oAuth works.
+
+### UUID
+
+Each User, both Admin and Tenants, access their respective Functions from their respective Modules using their respective UUID.  This is one flavor of Security but surely not the best.
+
+### TOTP
+
+Those wishing to deploy this Framework on their own can use oAuth or TOTP or any other system to augment their installation's security.  Functions can check for the expected Token and then take action or simply use an "assert" statement to handle this. 
 
 ---
 

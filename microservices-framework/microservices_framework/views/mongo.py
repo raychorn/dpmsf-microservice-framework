@@ -3,6 +3,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from django.conf import settings
+
+from vyperlogix.json import db
+
 import os
 import json
 
@@ -49,24 +53,22 @@ class RestAPI(APIView):
         response = {}
         response['env'] = {}
 
-        MONGO_URI = os.environ.get('MONGO_URI', '')
+        MONGO_URI = os.environ.get('MONGO_URI', default='')
         assert len(MONGO_URI) > 0, 'get_mongodb_connection :: (1) Problem with MONGO_URI ({}).'.format(MONGO_URI)
         response.get('env', {})['MONGO_URI'] = MONGO_URI
 
-        mongo_user = os.environ.get('MONGO_user', '')
+        mongo_user = os.environ.get('MONGO_user', default='')
         assert len(mongo_user) > 0, 'get_mongodb_connection :: (2) Problem with mongo_user ({}).'.format(mongo_user)
         response.get('env', {})['MONGO_user'] = mongo_user
 
-        mongo_db = os.environ.get('MONGO_db', '')
+        mongo_db = os.environ.get('MONGO_db', default='')
         assert len(mongo_db) > 0, 'get_mongodb_connection :: (3) Problem with mongo_db ({}).'.format(mongo_db)
         response.get('env', {})['MONGO_db'] = mongo_db
 
-        mongo_authMechanism = os.environ.get('MONGO_auth', '')
+        mongo_authMechanism = os.environ.get('MONGO_auth', default='')
         assert len(mongo_authMechanism) > 0, 'get_mongodb_connection :: (4) Problem with mongo_authMechanism ({}).'.format(mongo_authMechanism)
         response.get('env', {})['MONGO_auth'] = mongo_authMechanism
 
-        from django.conf import settings
-        
         assert settings.MONGODB_DATABASES, 'Missing the settings.MONGODB_DATABASES ?'
         if (settings.MONGODB_DATABASES):
             password = settings.MONGODB_DATABASES.get('default', {}).get('password')

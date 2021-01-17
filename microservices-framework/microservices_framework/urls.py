@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.conf.urls import url
 from django.urls import include, path, re_path
 
+from django.conf import settings
+
+from vyperlogix.json import db
+
 from django.views.generic.base import RedirectView
 from django.views.generic.base import TemplateView
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -27,14 +31,13 @@ from microservices_framework.views import services
 
 from vyperlogix.django.django_utils import get_optionals
 
-
-optionals = get_optionals(services.RestServicesAPI.as_view(), num_url_parms=int(os.environ.get('NUM_URL_PARMS', 10)))
+optionals = get_optionals(services.RestServicesAPI.as_view(), num_url_parms=int(os.environ.get('NUM_URL_PARMS', default=10)), db=db)
 
 urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'))),
 
-    path('rest/services/<slug:func>/', include(optionals) ),
-    path('rest/services/<slug:module>/<slug:func>/', include(optionals) ),
+    path('rest/services/<slug:uuid>/<slug:func>/', include(optionals) ),
+    path('rest/services/<slug:uuid>/<slug:module>/<slug:func>/', include(optionals) ),
     
     url(r'^$', views.Home.as_view()),
 ]
