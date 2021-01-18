@@ -75,7 +75,7 @@ Contact the developer (raychorn@gmail.com) for any specific requirements you may
 
 from vyperlogix.decorators import expose
 
-__ID__ = os.environ.get('ADMIN_ID')  # place your Tenant ID here. you get this when you register as a Tenant.
+__ID__ = '70dd81e5-961a-470e-9e88-63d828674757'  # place your Tenant ID here. you get this when you register as a Tenant.
 
 @expose.endpoint(method='GET', API='hello-world2')
 def foo2(*args, **kwargs):

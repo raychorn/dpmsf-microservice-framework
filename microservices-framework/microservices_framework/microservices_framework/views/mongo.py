@@ -10,6 +10,9 @@ from vyperlogix.json import db
 import os
 import json
 
+import logging
+logger = logging.getLogger(__name__)
+
 from pymongo import MongoClient
 
 from vyperlogix.django import django_utils
@@ -45,7 +48,7 @@ class RestAPI(APIView):
             payload_data = json.loads(request.body)
         except Exception as ex:
             payload_data = {'exception' : ex}
-      
+
         return payload_data
 
     
@@ -128,7 +131,7 @@ class MongoRestAPI(RestAPI):
         dbname = kwargs.get('dbname')
         collection = kwargs.get('collection')
         key = kwargs.get('key')
-        print('RestProjectAPI.get :: slug -> {}, collection -> {}, key -> {}'.format(dbname, collection, key))
+        logger.info('RestProjectAPI.get :: slug -> {}, collection -> {}, key -> {}'.format(dbname, collection, key))
         is_valid = lambda item:(item is not None) and (len(item) > 0)
         assert is_valid(dbname), '{} :: Missing dbname ({}).'.format(self.__class__, dbname)
         assert is_valid(collection), '{} :: Missing collection ({}).'.format(self.__class__, collection)
@@ -151,7 +154,7 @@ class MongoRestAPI(RestAPI):
             is_deleting = not is_valid(data.get(key))
             
         is_updating = is_valid(data.get(key))
-        print('DEBUG: is_updating -> {}, is_deleting -> {}'.format(is_updating, is_deleting))
+        logger.debug('DEBUG: is_updating -> {}, is_deleting -> {}'.format(is_updating, is_deleting))
 
         mongo_connection = self.get_mongodb_connection(dbname=dbname)
         try:
@@ -183,5 +186,5 @@ class MongoRestAPI(RestAPI):
             response['exception'] = str(ex)
 
 
-        print('DEBUG: response -> ' + str(response))
+        logger.debug('DEBUG: response -> ' + str(response))
         return Response(response, status=status.HTTP_200_OK, content_type='application/json')

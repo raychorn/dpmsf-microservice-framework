@@ -281,24 +281,32 @@ print('STATICFILES_DIRS -> {}'.format(STATICFILES_DIRS))
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },    
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'logit': {
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': '/var/log/django/{}.log'.format(BASE_DIR.split(os.sep)[-1]),
+            'when': 'midnight',
+            'backupCount': 10,
+            'formatter': 'verbose',
+        },        
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'django': {
+            'handlers': ['logit', 'console'],
             'propagate': True,
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG')
         },
-    }
-}
-    
+    },
+}    

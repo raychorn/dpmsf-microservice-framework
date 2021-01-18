@@ -10,6 +10,9 @@ import json
 import sys
 import traceback
 
+import logging
+logger = logging.getLogger(__name__)
+
 from vyperlogix.django import django_utils
 
 from .mongo import RestAPI
@@ -41,7 +44,7 @@ class RestServicesAPI(RestAPI):
                 fOut.write('{}\n'.format('#'*40))
                 fOut.write('\n\n')
                 fOut.flush()
-        return ServiceRunner(fp_plugins, uuid)
+        return ServiceRunner(fp_plugins, uuid, logger=logger, debug=settings.DEBUG)
 
     
     def get(self, request, *args, **kwargs):
@@ -49,9 +52,9 @@ class RestServicesAPI(RestAPI):
         DEBUG = getattr(settings, "DEBUG", False)
         func = kwargs.get('func')
         uuid = kwargs.get('uuid')
-        print('*** uuid -> {}'.format(uuid))
+        logger.info('*** uuid -> {}'.format(uuid))
         admin_id = db.get_admin_id()
-        print('*** admin_id -> {}'.format(admin_id))
+        logger.info('*** admin_id -> {}'.format(admin_id))
         response = {'status' : 'OK'}
         try:
             if (func == '__directory__'):
@@ -121,7 +124,7 @@ class RestServicesAPI(RestAPI):
             extype, ex, tb = sys.exc_info()
             formatted = traceback.format_exception_only(extype, ex)[-1]
             for l in traceback.format_exception(extype, ex, tb):
-                print(l.rstrip())
+                logger.error(l.rstrip())
             response = {}
             response['exception'] = formatted
             return Response(response, status=status.HTTP_404_NOT_FOUND, content_type='application/json')
@@ -129,10 +132,10 @@ class RestServicesAPI(RestAPI):
 
 
     def post(self, request, **kwargs):
-        print('*** kwargs -> {}'.format(kwargs))
+        logger.info('*** kwargs -> {}'.format(kwargs))
         func = kwargs.get('func')
         uuid = kwargs.get('uuid')
-        print('*** uuid -> {}'.format(uuid))
+        logger.info('*** uuid -> {}'.format(uuid))
 
         response = {'status' : 'OK'}
         __body__ = self.get_payload(request)
@@ -164,8 +167,8 @@ class RestServicesAPI(RestAPI):
                 for k,v in kwargs.items():
                     k = __map__.get(k, k)
                     data[k] = v
-                print('*** request -> {}'.format(data.get('__request__', {}).__class__.__name__))
-                print('DEBUG: data -> {}'.format(['{} -> {}\n'.format(k,v) for k,v in data.items()]))
+                logger.info('*** request -> {}'.format(data.get('__request__', {}).__class__.__name__))
+                logger.info('DEBUG: data -> {}'.format(['{} -> {}\n'.format(k,v) for k,v in data.items()]))
                 data['__request__'] = request
                 val = runner.exec(module_name, func_name, **data)
                 response['response'] = val
@@ -175,10 +178,10 @@ class RestServicesAPI(RestAPI):
         except Exception as ex:
             extype, ex, tb = sys.exc_info()
             formatted = traceback.format_exception_only(extype, ex)[-1]
-            print('BEGIN: Exception')
+            logger.error('BEGIN: Exception')
             for l in traceback.format_exception(extype, ex, tb):
-                print(l.rstrip())
-            print('END!!! Exception')
+                logger.error(l.rstrip())
+            logger.error('END!!! Exception')
             response = {}
             response['exception'] = formatted
             return Response(response, status=status.HTTP_404_NOT_FOUND, content_type='application/json')
