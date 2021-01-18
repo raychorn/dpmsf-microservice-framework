@@ -1,21 +1,39 @@
-#!/bin/bash
+# deploy this into /workspaces in the container
 
-VENV=.venv
-REQS=requirements.txt
+do_it(){
+    REQS=requirements.txt
 
-git pull origin main
+    dir1="/workspaces/microservices-framework/"
+    dir2="$dir1/microservices-framework"
+    VENV=$dir1/.venv
 
-dir="./microservices-framework"
+    cd $dir1
+    git pull origin main
 
-python=/usr/bin/python3.8
-vers=$($python -c 'import sys; i=sys.version_info; print("{}{}{}".format(i.major,i.minor,i.micro))')
+    python=/usr/bin/python3.8
+    vers=$($python -c 'import sys; i=sys.version_info; print("{}{}{}".format(i.major,i.minor,i.micro))')
 
-if [[ ! -d $VENV$vers ]]
-then
-    virtualenv --python $python -v $VENV$vers
-fi
+    if [[ ! -d $VENV$vers ]]
+    then
+        virtualenv --python $python -v $VENV$vers
+    fi
 
-. $VENV$vers/bin/activate
-pip install -r $dir/$REQS
+    vyperlib=$dir2/python_lib3/vyperlogix38.zip
+    if [[ ! -f $vyperlib ]]
+    then
+        echo "Cannot find $vyperlib"
+        exit
+    fi
 
-gunicorn -c $dir/config.py microservices_framework.wsgi:application
+    . $VENV$vers/bin/activate
+    pip install -r $dir2/$REQS
+
+    cd $dir2
+    export PYTHONPATH=/workspaces:$dir2:$vyperlib
+    #ls -la
+    #python -m debug1
+    python ./manage.py runserver 127.0.0.1:9000 -v 3 --settings microservices_framework.settings
+    #gunicorn -c $dir2/config.py microservices_framework.wsgi:application
+}
+
+do_it #>/workspaces/runserver_report.txt 2>&1

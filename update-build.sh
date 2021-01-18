@@ -8,12 +8,13 @@ FRAMEWORK_DEST=/workspaces/microservices-framework/microservices-framework
 if [[ -d $FRAMEWORK_SRC ]]
 then
     echo "Updating FRAMEWORK"
+    mv $FRAMEWORK_DEST/.env $FRAMEWORK_DEST/..
     rm -R -f $FRAMEWORK_DEST/
     mkdir -p $FRAMEWORK_DEST
     cp -R -f $FRAMEWORK_SRC/* $FRAMEWORK_DEST
     rm -R -f $FRAMEWORK_DEST/python_lib3/*
     find $FRAMEWORK_DEST -name __pycache__ -exec rm -rf {} \;
-    #cp -f $FRAMEWORK_SRC/.env $FRAMEWORK_DEST/.env
+    mv $FRAMEWORK_DEST/../.env $FRAMEWORK_DEST
 fi
 
 if [[ -d $LIB_SRC ]]

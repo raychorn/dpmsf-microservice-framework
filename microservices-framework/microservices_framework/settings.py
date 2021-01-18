@@ -293,7 +293,7 @@ LOGGING = {
         'logit': {
             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': '/var/log/django/{}.log'.format(BASE_DIR.split(os.sep)[-1]),
+            'filename': '/var/log/django/{}.log'.format(str(BASE_DIR).split(os.sep)[-1]),
             'when': 'midnight',
             'backupCount': 10,
             'formatter': 'verbose',
