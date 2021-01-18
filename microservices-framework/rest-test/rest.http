@@ -1,25 +1,29 @@
 
-GET http://127.0.0.1:8088/rest/services/module1/__dir__/ HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/module1/__dir__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/module2/__dir__/ HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/module1/__dir__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/__directory__/ HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/module2/__dir__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/2/3/4/5/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###
+
+GET http://127.0.0.1:9000/rest/services/hello-world/2/3/4/5/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###  The following should fail with a 404.
 
-POST http://127.0.0.1:8088/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -32,15 +36,11 @@ content-type: application/json
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/bar-none/ HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/bar-none/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
-
-###
-
-POST http://127.0.0.1:8088/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -53,7 +53,7 @@ content-type: application/json
 
 ###
 
-POST http://127.0.0.1:8088/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -66,7 +66,7 @@ content-type: application/json
 
 ###
 
-PUT http://127.0.0.1:8088/rest/services/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+PUT http://127.0.0.1:9000/rest/services/sample-one2/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -79,7 +79,7 @@ content-type: application/json
 
 ###
 
-DELETE http://127.0.0.1:8088/rest/services/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+DELETE http://127.0.0.1:9000/rest/services/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -92,7 +92,7 @@ content-type: application/json
 
 ###
 
-DELETE http://127.0.0.1:8088/rest/services/sample-one2a/2/ HTTP/1.1
+DELETE http://127.0.0.1:9000/rest/services/sample-one2a/2/ HTTP/1.1
 content-type: application/json
 
 {
@@ -105,15 +105,15 @@ content-type: application/json
 
 ###  The following demo API Versioning.
 
-GET http://127.0.0.1:8088/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###
 
-DELETE http://127.0.0.1:8088/rest/services/module1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+DELETE http://127.0.0.1:9000/rest/services/module1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -138,7 +138,7 @@ content-type: application/json
 
 ### 
 
-POST http://127.0.0.1:8088/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -163,7 +163,7 @@ content-type: application/json
 
 ###
 
-POST http://127.0.0.1:8088/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -198,7 +198,7 @@ GET https://project-name.uc.r.appspot.com/rest/services/hello-world/1/2/3/4/5/6/
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/2/3/4/5/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/hello-world/2/3/4/5/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###  The following should fail with a 404.
 
@@ -262,7 +262,7 @@ content-type: application/json
 
 ###
 
-DELETE http://127.0.0.1:8088/rest/services/sample-two/2/ HTTP/1.1
+DELETE http://127.0.0.1:9000/rest/services/sample-two/2/ HTTP/1.1
 content-type: application/json
 
 {
@@ -275,15 +275,15 @@ content-type: application/json
 
 ###  The following demo API Versioning.
 
-GET http://127.0.0.1:8088/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/module1/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:8088/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###
 
-DELETE http://127.0.0.1:8088/rest/services/modules1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+DELETE http://127.0.0.1:9000/rest/services/modules1/sample-one2a/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -308,11 +308,11 @@ content-type: application/json
 
 ### 
 
-GET http://127.0.0.1:8088/rest/services/__dir__/ HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/__dir__/ HTTP/1.1
 
 ###
 
-POST http://127.0.0.1:8088/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -337,7 +337,7 @@ content-type: application/json
 
 ###
 
-POST http://127.0.0.1:8088/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+POST http://127.0.0.1:9000/rest/services/v1/sample-one/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 content-type: application/json
 
 {
@@ -359,4 +359,74 @@ content-type: application/json
         "parm_10" : "p10"
     }
 }
+
+###  Should fail because the ADMIN ID is already registered.
+
+POST http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/tenant-api/___register___/ HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "raychorn@hotmail.com",
+    "uuid": "4a1bf01e-0693-48c5-a52b-fc275205c1d8",
+    "__map__" : {
+        "parm_1" : "p1",
+        "parm_2" : "p2",
+        "parm_3" : "p3",
+        "parm_4" : "p4",
+        "parm_5" : "p5",
+        "parm_6" : "p6",
+        "parm_7" : "p7",
+        "parm_8" : "p8",
+        "parm_9" : "p9"
+    }
+}
+
+### 
+
+POST http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/tenant-api/___register___/ HTTP/1.1
+content-type: application/json
+
+{
+    "userid": "raychorn@hotmail.com",
+    "uuid": "70dd81e5-961a-470e-9e88-63d828674757"
+}
+
+### 
+
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/tenant-api/___list___/ HTTP/1.1
+
+### 
+
+DELETE http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/tenant-api/___remove___/ HTTP/1.1
+content-type: application/json
+
+{
+    "uuid": "70dd81e5-961a-470e-9e88-63d828674757"
+}
+
+### 
+
+POST http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/tenant-api/___enable___/ HTTP/1.1
+content-type: application/json
+
+{
+    "uuid": "27a27963-fd9b-4490-99bf-cae3703f2557"
+}
+
+### 
+
+POST http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/tenant-api/___disable___/ HTTP/1.1
+content-type: application/json
+
+{
+    "uuid": "27a27963-fd9b-4490-99bf-cae3703f2557"
+}
+
+###  This is a normal Tenant API, subject to the Sandbox.
+
+GET http://127.0.0.1:9000/rest/services/70dd81e5-961a-470e-9e88-63d828674757/hello-world2/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###  Admin Role via the ADMIN_ID can run any function. There is no Sanbox for this API User because Admin's can do anything.
+
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/hello-world2/?a=1&b=2&c=3&d=4 HTTP/1.1
 
