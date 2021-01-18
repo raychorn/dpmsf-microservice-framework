@@ -25,7 +25,7 @@ from vyperlogix.json import db
 from django.conf import settings
 
 __alias__ = "tenant-api"  # this is the module's alias wwhich couldl also be a version identifier to support API Versioning.
-__ID__ = ''  # place your Tenant ID here. you get this when you register as a Tenant.
+__ID__ = os.environ.get('ADMIN_ID')  # place your Tenant ID here. you get this when you register as a Tenant.
 # Be careful to whom you grant access to this API.  This API is an Administrative API that allows Tenants to be Registered, Disabled or Removed.
 # The __ID__ should be the ADMIN_ID and not a typical Tenant ID.
 
