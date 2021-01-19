@@ -34,13 +34,14 @@ Under-cut AWS for RESTful Lambda Functions
       - [Multi-Tenancy is now backed into the Framework](#multi-tenancy-is-now-backed-into-the-framework)
         - [Admin Tenant](#admin-tenant)
         - [Multi-Admin Installations](#multi-admin-installations)
-    - [GCP](#gcp)
-      - [Google Cloud Platform and Google App Engine](#google-cloud-platform-and-google-app-engine)
-      - [Google Compute Engine](#google-compute-engine)
-    - [AWS](#aws)
-    - [Azure](#azure)
-    - [The IBM Cloud](#the-ibm-cloud)
-    - [The Oracle Cloud](#the-oracle-cloud)
+    - [VM Deployments](#vm-deployments)
+      - [GCP](#gcp)
+        - [Google Cloud Platform and Google App Engine](#google-cloud-platform-and-google-app-engine)
+        - [Google Compute Engine](#google-compute-engine)
+      - [AWS](#aws)
+      - [Azure](#azure)
+      - [The IBM Cloud](#the-ibm-cloud)
+      - [The Oracle Cloud](#the-oracle-cloud)
   - [Security](#security)
     - [oAuth](#oauth)
     - [UUID](#uuid)
@@ -489,9 +490,18 @@ There can be only one Admin but many Tenants. For now.
 Little work would be required to support multiple Admin Tenants. This can be easily done by creating many "ADMIN" Collections in the "VYPERADMIN" database.  For instance, this could be done via a single "ADMIN" collection that holds the UUIDs for all of the Admin Tenants where each Admin Tenant has their own Collection perhaps in the form of "ADMIN-UUID" where the "UUID" is the actual UUID for each Admin. There is a single TENANT Collection that holds the UUIDs for all the non-Admin Tenants.  Stay tuned to this space for more.
 
 
-### GCP
+### VM Deployments
 
-#### Google Cloud Platform and Google App Engine
+1. Clone the repo in your VM.
+2. Edit the docker-compose.yml file to mount the code in a volume.
+   1. /workspaces
+3. ./docker-up.sh
+4. ./docker-dn.sh
+5. ./docker-logs.sh
+   
+#### GCP
+
+##### Google Cloud Platform and Google App Engine
 
 [Table of Contents](#table-of-contents)
 
@@ -503,36 +513,35 @@ Use "gcprunner.sh" to test before deploying to GCP.
 Use "gcloud app deploy" to deploy.
 ```
 
-#### Google Compute Engine
+##### Google Compute Engine
 
 Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
 
 This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
 
-### AWS
+#### AWS
 
 Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
 
 This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
 
-### Azure
+#### Azure
 
 Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
 
 This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
 
-### The IBM Cloud
+#### The IBM Cloud
 
 Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
 
 This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
 
-### The Oracle Cloud
+#### The Oracle Cloud
 
 Deploy via Virtual Machines via Docker. [Docker-Mongo-Deployment](https://github.com/raychorn/docker-mongo)
 
 This sample Docker Deployment features a MongoDB Container and a Web-Head which could be this framework.
-
 
 ---
 
