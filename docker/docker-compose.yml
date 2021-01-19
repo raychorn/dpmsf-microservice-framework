@@ -35,11 +35,7 @@ services:
         container_name: vyperapi
         restart: unless-stopped
         volumes:
-            - ./workspaces/logs/:/var/log/django/
-            #- C:\Users\Owner\OneDrive\##projects\docker-projects\docker-mongo-dev1:/workspaces/docker-mongo-dev1
-            #- ./workspaces:/workspaces
-            #- ./workspaces/runserver.sh:/docker-entrypoint-initdb.d/runserver.sh
-            #- ./workspaces/runserver.sh:/workspaces/runserver.sh
+            - ./django/logs/:/var/log/django/
         ports:
             - "9000:9000"
         depends_on:

@@ -493,8 +493,11 @@ Little work would be required to support multiple Admin Tenants. This can be eas
 ### VM Deployments
 
 1. Clone the repo in your VM.
+   1. git clone https://github.com/raychorn/microservices-framework.git > git-clone.sh
+   2. chmod +x *.sh
 2. Edit the docker-compose.yml file to mount the code in a volume.
-   1. /workspaces
+   1. cd ./microservices-framework
+   1. cd ./
 3. ./docker-up.sh
 4. ./docker-dn.sh
 5. ./docker-logs.sh
