@@ -20,9 +20,6 @@ services:
             options:
                 max-size: 1g        
         command: ["-f", "/etc/mongod.conf"]
-        networks:
-            - front
-            - back
         restart: unless-stopped
         deploy:
             resources:
@@ -49,25 +46,11 @@ services:
         tty: true
         stdin_open: true
         #command: ["/workspaces/microservices-framework/runserver.sh"]
+        network_mode: "host"
+        links:
+            - mongodb
         deploy:
             resources:
                 limits:
                     cpus: '0.9'
                     memory: 1000M
-        networks:
-            - front
-            - back
-
-networks:
-    front:
-        ipam:
-        config:
-            - subnet: 10.5.0.0/16
-            ip_range: 10.5.0.0/24
-            gateway: 10.5.0.1
-    back:
-        ipam:
-        config:
-            - subnet: 10.5.0.0/16
-            ip_range: 10.5.0.0/24
-            gateway: 10.5.0.1
