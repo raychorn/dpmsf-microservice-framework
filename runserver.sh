@@ -37,4 +37,4 @@ do_it(){
     #gunicorn -c $dir2/config.py microservices_framework.wsgi:application
 }
 
-do_it #>/workspaces/runserver_report.txt 2>&1
+do_it >/var/log/django/runserver_report.txt 2>&1
