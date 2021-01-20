@@ -33,7 +33,7 @@ do_it(){
     #ls -la
     #python -m debug1
     python $MANAGEPY migrate -v 3 --settings microservices_framework.settings
-    python ./manage.py runserver 127.0.0.1:9000 -v 3 --settings microservices_framework.settings
+    python ./manage.py runserver 10.5.0.6:9000 -v 3 --settings microservices_framework.settings
     #gunicorn -c $dir2/config.py microservices_framework.wsgi:application
 }
 
