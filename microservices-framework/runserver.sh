@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PYTHONPATH=/workspaces/private-microservices-framework/microservices_framework:/workspaces/private_vyperlogix_lib3
+
 ISPUBLIC=$(pwd | grep public)
 ISPRIVATE=$(pwd | grep private)
 

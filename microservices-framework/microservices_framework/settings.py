@@ -278,6 +278,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 print('STATICFILES_DIRS -> {}'.format(STATICFILES_DIRS))
 
+if (not os.path.exists('/var/log/django')):
+    os.mkdir('/var/log/django')
+    
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
