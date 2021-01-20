@@ -46,7 +46,6 @@ services:
         tty: true
         stdin_open: true
         #command: ["/workspaces/microservices-framework/runserver.sh"]
-        network_mode: "host"
         links:
             - mongodb
         deploy:
