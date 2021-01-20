@@ -21,7 +21,7 @@ services:
                 max-size: 1g        
         command: ["-f", "/etc/mongod.conf"]
         networks:
-            back:
+            vpcbr:
                 ipv4_address: 10.5.0.5
         restart: unless-stopped
         deploy:
@@ -55,20 +55,13 @@ services:
                     cpus: '0.9'
                     memory: 1000M
         networks:
-            front:
+            vpcbr:
                 ipv4_address: 10.5.0.6
-            - back
 
 networks:
-    front:
-        ipam:
-        config:
-            - subnet: 10.5.0.0/16
-            ip_range: 10.5.0.0/24
-            gateway: 10.5.0.1
-    back:
-        ipam:
-        config:
-            - subnet: 10.5.0.0/16
-            ip_range: 10.5.0.0/24
-            gateway: 10.5.0.1
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
