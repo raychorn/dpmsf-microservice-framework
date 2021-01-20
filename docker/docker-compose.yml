@@ -21,8 +21,8 @@ services:
                 max-size: 1g        
         command: ["-f", "/etc/mongod.conf"]
         networks:
-            back:
-                ipv4_address: 10.5.0.5
+            - front
+            - back
         restart: unless-stopped
         deploy:
             resources:
@@ -55,8 +55,7 @@ services:
                     cpus: '0.9'
                     memory: 1000M
         networks:
-            front:
-                ipv4_address: 10.5.0.6
+            - front
             - back
 
 networks:
