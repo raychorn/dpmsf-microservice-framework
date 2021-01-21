@@ -59,6 +59,9 @@ cover/
 *.mo
 *.pot
 
+ssl-csr/
+
+
 # Django stuff:
 !*.log
 local_settings.py

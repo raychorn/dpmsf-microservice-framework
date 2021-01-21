@@ -74,7 +74,8 @@ class RestServicesAPI(RestAPI):
                             fOut.write('\n\n')
                             fOut.flush()
                     runner = ServiceRunner(fp_plugins, admin_id)
-                    if (DEBUG):
+                    if (DEBUG or request.query_params.get('DEBUG', False)):
+                        response['query_params'] = request.query_params
                         response['modules'] = runner.modules
                         response['endpoints'] = expose.get_endpoints()
                         response['imports'] = runner.imports

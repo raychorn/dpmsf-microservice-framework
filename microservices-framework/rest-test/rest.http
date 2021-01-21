@@ -3,7 +3,7 @@ GET http://127.0.0.1:9000/rest/services/module1/__dir__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/module1/__dir__/ HTTP/1.1
+https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/module1/__dir__/ HTTP/1.1
 
 ### 
 
@@ -11,7 +11,11 @@ GET http://127.0.0.1:9000/rest/services/module2/__dir__/ HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/ HTTP/1.1
+http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
+
+###
+
+https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/ HTTP/1.1
 
 ###
 
