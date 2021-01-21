@@ -17,8 +17,8 @@
 #       Must be a positive integer. Generally set in the 64-2048
 #       range.
 #
-
-bind = '10.5.0.6:9000'
+import os
+bind = str(os.environ.get('VYPERAPI_URL'))
 backlog = 2048
 
 #
