@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import socket
+ip = socket.gethostbyname(socket.gethostname())
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (str(ip).find('127.0.0.1') > -1)
 
 import os, sys
 from os import environ
