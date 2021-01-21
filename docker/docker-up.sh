@@ -18,4 +18,4 @@ then
     echo "Restarting $CID"
     docker restart $CID
 fi
-service nginx restart
+sudo service nginx restart
