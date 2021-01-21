@@ -8,7 +8,7 @@ do_it(){
     VENV=$dir1/.venv
 
     cd $dir1
-    git pull origin main
+    #git pull origin main
 
     python=/usr/bin/python3.8
     vers=$($python -c 'import sys; i=sys.version_info; print("{}{}{}".format(i.major,i.minor,i.micro))')
