@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import socket
+ip = socket.gethostbyname(socket.gethostname())
+DEBUG = str(ip).find('127.0.0.1') > -1
 
 import os, sys
 from os import environ
