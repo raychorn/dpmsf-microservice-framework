@@ -36,6 +36,7 @@ services:
         restart: unless-stopped
         volumes:
             - ./django/logs/:/var/log/django/
+            - ..:/workspaces/microservices-framework/
         ports:
             - "9000:9000"
         depends_on:
@@ -44,11 +45,11 @@ services:
             - .env
         environment:
             WAIT_HOSTS: mongodb:27017
-        #entrypoint:
-        #    - /bin/bash
+        entrypoint:
+            - /bin/bash
         tty: true
         stdin_open: true
-        command: ["/workspaces/microservices-framework/runserver.sh"]
+        #command: ["/workspaces/microservices-framework/runserver.sh"]
         deploy:
             resources:
                 limits:
