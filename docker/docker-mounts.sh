@@ -17,6 +17,6 @@ CID=$(docker ps -qf "name=$choice")
 echo "CID=$CID"
 if [[ ! $CID. == . ]]
 then
-    echo "Showling logs $CID"
+    echo "Showing mounts $CID"
     docker inspect -f "{{ .Mounts }}" $CID
 fi

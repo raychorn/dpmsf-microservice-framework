@@ -17,6 +17,7 @@ CID=$(docker ps -qf "name=$choice")
 echo "CID=$CID"
 if [[ ! $CID. == . ]]
 then
-    echo "Showing logs $CID"
-    docker logs --tail 2500 $CID
+    echo "Updating $CID"
+    read -p "CPU share of 1024: " cpu_share
+    docker update --cpus="$cpu_share" $CID
 fi
