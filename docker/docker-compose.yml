@@ -27,7 +27,7 @@ services:
         deploy:
             resources:
                 limits:
-                    cpus: '0.1'
+                    cpus: '102.4'
                     memory: 200M
 
     webserver:
@@ -53,7 +53,7 @@ services:
         deploy:
             resources:
                 limits:
-                    cpus: '0.9'
+                    cpus: '921.6'
                     memory: 1000M
         networks:
             vpcbr:
