@@ -4,7 +4,7 @@ ARRAY=()
 ARRAY+=("mongodb")
 ARRAY+=("vyperapi")
 
-PS3="Choose: "
+PS3="Choose: " 
 
 select option in "${ARRAY[@]}";
 do

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-vyperapi="vyperapi"
+vyperapi="vyperapi" 
 
 mkdir -p ./mongodb/data/log/
 #touch ./mongodb/data/log/mongod.log
