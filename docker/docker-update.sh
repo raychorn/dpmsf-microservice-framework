@@ -19,5 +19,5 @@ if [[ ! $CID. == . ]]
 then
     echo "Updating $CID"
     read -p "CPU share of 1024: " cpu_share
-    docker update --cpus="$cpu_share" $CID
+    docker update --cpu-shares="$cpu_share" $CID
 fi
