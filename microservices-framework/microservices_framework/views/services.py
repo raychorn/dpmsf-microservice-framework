@@ -29,22 +29,34 @@ class RestServicesAPI(RestAPI):
     """
     Microservice Architecture that deployes Python Modules via REST End-points.
     """
-    def get_runner(self, uuid):
+    def get_plugins(self):
         fp_root = os.path.dirname(__file__)
         fp_plugins = os.sep.join([fp_root, 'plugins'])
-        has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
-        if (not has_plugins):
-            os.mkdir(fp_plugins)
+        __fp_plugins__ = []
+        for f in os.environ.get('plugins', '.').split(':'):
+            if (f == '.'):
+                __fp_plugins__.append(fp_plugins)
+            elif (os.path.exists(f) and os.path.isdir(f)):
+                __fp_plugins__.append(f)
+        return __fp_plugins__
+    
+        
+    def get_runner(self, uuid):
+        __fp_plugins__ = self.get_plugins()
+        for fp_plugins in __fp_plugins__:
             has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
-        fp_plugins_initpy = os.sep.join([fp_plugins, '__init__.py'])
-        if (not (os.path.exists(fp_plugins_initpy) and (os.path.isfile(fp_plugins_initpy)))):
-            with open(fp_plugins_initpy, 'w') as fOut:
-                fOut.write('{}\n'.format('#'*40))
-                fOut.write('# (c). Copyright, Vyper Logix Corp, All Rights Reserved.\n')
-                fOut.write('{}\n'.format('#'*40))
-                fOut.write('\n\n')
-                fOut.flush()
-        return ServiceRunner(fp_plugins, uuid, logger=logger, debug=settings.DEBUG)
+            if (not has_plugins):
+                os.mkdir(fp_plugins)
+                has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
+            fp_plugins_initpy = os.sep.join([fp_plugins, '__init__.py'])
+            if (not (os.path.exists(fp_plugins_initpy) and (os.path.isfile(fp_plugins_initpy)))):
+                with open(fp_plugins_initpy, 'w') as fOut:
+                    fOut.write('{}\n'.format('#'*40))
+                    fOut.write('# (c). Copyright, Vyper Logix Corp, All Rights Reserved.\n')
+                    fOut.write('{}\n'.format('#'*40))
+                    fOut.write('\n\n')
+                    fOut.flush()
+        return ServiceRunner(__fp_plugins__, uuid, logger=logger, debug=settings.DEBUG)
 
     
     def get(self, request, *args, **kwargs):
@@ -60,27 +72,30 @@ class RestServicesAPI(RestAPI):
             if (func == '__directory__'):
                 if (uuid == admin_id):
                     response['fpath'] = fp_root = os.path.dirname(__file__)
-                    fp_plugins = os.sep.join([fp_root, 'plugins'])
-                    response['has_plugins'] = has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
-                    if (not has_plugins):
-                        os.mkdir(fp_plugins)
-                        response['has_plugins'] = has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
-                    fp_plugins_initpy = os.sep.join([fp_plugins, '__init__.py'])
-                    if (not (os.path.exists(fp_plugins_initpy) and (os.path.isfile(fp_plugins_initpy)))):
-                        with open(fp_plugins_initpy, 'w') as fOut:
-                            fOut.write('{}\n'.format('#'*40))
-                            fOut.write('# (c). Copyright, Vyper Logix Corp, All Rights Reserved.\n')
-                            fOut.write('{}\n'.format('#'*40))
-                            fOut.write('\n\n')
-                            fOut.flush()
-                    runner = ServiceRunner(fp_plugins, admin_id)
-                    if (DEBUG or request.query_params.get('DEBUG', False)):
-                        response['query_params'] = request.query_params
-                        response['modules'] = runner.modules
-                        response['endpoints'] = expose.get_endpoints()
-                        response['imports'] = runner.imports
-                        response['aliases'] = runner.aliases
-                        response['status'] = 'OK'
+                    __fp_plugins__ = self.get_plugins()
+                    response['__fp_plugins__'] = {}
+                    for fp_plugins in __fp_plugins__:
+                        response['__fp_plugins__'][fp_plugins] = {}
+                        response['__fp_plugins__'][fp_plugins]['has_plugins'] = has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
+                        if (not has_plugins):
+                            os.mkdir(fp_plugins)
+                            response['__fp_plugins__'][fp_plugins]['has_plugins'] = has_plugins = os.path.exists(fp_plugins) and os.path.isdir(fp_plugins)
+                        fp_plugins_initpy = os.sep.join([fp_plugins, '__init__.py'])
+                        if (not (os.path.exists(fp_plugins_initpy) and (os.path.isfile(fp_plugins_initpy)))):
+                            with open(fp_plugins_initpy, 'w') as fOut:
+                                fOut.write('{}\n'.format('#'*40))
+                                fOut.write('# (c). Copyright, Vyper Logix Corp, All Rights Reserved.\n')
+                                fOut.write('{}\n'.format('#'*40))
+                                fOut.write('\n\n')
+                                fOut.flush()
+                        runner = ServiceRunner(fp_plugins, admin_id)
+                        if (DEBUG or request.query_params.get('DEBUG', False)):
+                            response['__fp_plugins__'][fp_plugins]['query_params'] = request.query_params
+                            response['__fp_plugins__'][fp_plugins]['modules'] = runner.modules
+                            response['__fp_plugins__'][fp_plugins]['endpoints'] = expose.get_endpoints()
+                            response['__fp_plugins__'][fp_plugins]['imports'] = runner.imports
+                            response['__fp_plugins__'][fp_plugins]['aliases'] = runner.aliases
+                            response['__fp_plugins__'][fp_plugins]['status'] = 'OK'
                 else:
                     response= {} # no response when the uuid is missing or invalid.
                     return Response(response, status=status.HTTP_404_NOT_FOUND, content_type='application/json')

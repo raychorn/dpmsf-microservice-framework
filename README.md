@@ -35,6 +35,7 @@ Under-cut AWS for RESTful Lambda Functions
         - [Admin Tenant](#admin-tenant)
         - [Multi-Admin Installations](#multi-admin-installations)
     - [VM Deployments](#vm-deployments)
+      - [Multiple plugins directories](#multiple-plugins-directories)
       - [GCP](#gcp)
         - [Google Cloud Platform and Google App Engine](#google-cloud-platform-and-google-app-engine)
         - [Google Compute Engine](#google-compute-engine)
@@ -504,6 +505,18 @@ Little work would be required to support multiple Admin Tenants. This can be eas
 4. ./docker-dn.sh
 5. ./docker-logs.sh
 6. ./docker-restart.sh
+
+#### Multiple plugins directories
+
+Put this in your .env file. This works like the PYTHONPATH but for plugins.
+
+Module names and module aliases must be unique or bad evil things might happen.
+
+Each Tenant can have their own plugin directory, if desired.
+
+```
+plugins=.:/workspaces/plugins # dot means the default, all others delimited by ":" adds more directories to the list.
+```
    
 #### GCP
 
