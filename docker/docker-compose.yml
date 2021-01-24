@@ -37,6 +37,7 @@ services:
         volumes:
             - ./django/logs/:/var/log/django/
             - ..:/workspaces/microservices-framework/
+            - /workspaces/plugins/:/workspaces/plugins/
         ports:
             - "9000:9000"
         depends_on:

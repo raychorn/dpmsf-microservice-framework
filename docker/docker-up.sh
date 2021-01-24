@@ -11,7 +11,7 @@ sudo chown -R root:root ./django
 sudo chmod -R 0777 ./django
 
 ARRAY=()
-ARRAY+=('/workspaces/admin-plugins')
+ARRAY+=('/workspaces/plugins/admin-plugins')
 
 for workspace in "${ARRAY[*]}"
 do
