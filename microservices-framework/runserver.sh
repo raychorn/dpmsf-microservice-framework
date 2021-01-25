@@ -59,7 +59,7 @@ echo "Use this -> $choice"
 
 if [[ $choice. == $dev_server_choice. ]];then
     echo "Running $dev_server_choice"
-    python $MANAGEPY runserver 127.0.0.1:9000 -v 3 --settings microservices_framework.settings
+    python $MANAGEPY runserver 127.0.0.1:9000 --settings microservices_framework.settings
 fi
 
 if [[ $choice. == $gunicorn_choice. ]];then

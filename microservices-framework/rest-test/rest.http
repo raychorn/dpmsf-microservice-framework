@@ -1,5 +1,5 @@
 
-GET http://127.0.0.1:9000/rest/services/module1/__dir__/ HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/module1/__dir__/ HTTP/1.1
 
 ###
 
@@ -11,23 +11,27 @@ GET http://127.0.0.1:9000/rest/services/module2/__dir__/ HTTP/1.1
 
 ###
 
-http://34.122.178.102/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
+GET http://34.122.178.102/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
 
 ###
 
-https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
+GET https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
 
 ###
 
-http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:9000/rest/services/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/hello-world/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:9000/rest/services/hello-world/2/3/4/5/?a=1&b=2&c=3&d=4 HTTP/1.1
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/bar-none/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
+
+###
+
+GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__list__/1/2/3/4/5/6/7/8/9/10/?a=1&b=2&c=3&d=4 HTTP/1.1
 
 ###  The following should fail with a 404.
 
@@ -438,3 +442,11 @@ GET http://127.0.0.1:9000/rest/services/70dd81e5-961a-470e-9e88-63d828674757/hel
 
 GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/hello-world2/?a=1&b=2&c=3&d=4 HTTP/1.1
 
+###
+
+POST http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/hello-world/?a=1&b=2&c=3&d=4 HTTP/1.1
+content-type: application/json
+
+{
+    "something": "this is something"
+}

@@ -91,10 +91,10 @@ class RestServicesAPI(RestAPI):
                         runner = ServiceRunner(fp_plugins, admin_id)
                         if (DEBUG or request.query_params.get('DEBUG', False)):
                             response['__fp_plugins__'][fp_plugins]['query_params'] = request.query_params
-                            response['__fp_plugins__'][fp_plugins]['modules'] = runner.modules
-                            response['__fp_plugins__'][fp_plugins]['endpoints'] = expose.get_endpoints()
-                            response['__fp_plugins__'][fp_plugins]['imports'] = runner.imports
-                            response['__fp_plugins__'][fp_plugins]['aliases'] = runner.aliases
+                            response['__fp_plugins__'][fp_plugins]['modules'] = runner.modules.get(fp_plugins)
+                            response['__fp_plugins__'][fp_plugins]['endpoints'] = expose.get_endpoints(for_root=fp_plugins)
+                            response['__fp_plugins__'][fp_plugins]['imports'] = runner.imports.get(fp_plugins)
+                            response['__fp_plugins__'][fp_plugins]['aliases'] = runner.aliases.get(fp_plugins)
                             response['__fp_plugins__'][fp_plugins]['status'] = 'OK'
                 else:
                     response= {} # no response when the uuid is missing or invalid.
@@ -104,14 +104,19 @@ class RestServicesAPI(RestAPI):
                 url_parm_to_alias = url_parm_analysis.get('->', {})
                 url_parm_alias_to_original = url_parm_analysis.get('<-', {})
 
-                runner = self.get_runner(uuid)
-                if (func in runner.modules.keys()) or (func in runner.aliases):
-                    func = kwargs.get(url_parm_to_alias.get('URL_PARM1', ''))
-                endpoints = expose.get_endpoints()
-                d = endpoints.get(request.method, {}).get(func, None)
+                d = runner = root = None
+                for root in self.get_plugins():
+                    runner = ServiceRunner(root, uuid)
+                    endpoints = expose.get_endpoints(for_root=root).get(root, {})
+                    if (func in runner.modules.get(root, {}).keys()) or (func in runner.aliases.get(root, [])):
+                        func = kwargs.get(url_parm_to_alias.get('URL_PARM1', ''))
+                    d = endpoints.get(request.method, {})
+                    d = d.get(func, None)
+                    if (d is not None) and (len(d) > 0):
+                        break
                 if ( (d is not None) and (kwargs.get('module', None) is None) ) or ( (d is not None) and (d.get('module') == kwargs.get('module')) ):
                     func_name = d.get('func')
-                    module_alias = runner.aliases.get(d.get('module'))
+                    module_alias = runner.aliases.get(root, {}).get(d.get('module'))
                     module_name = d.get('module') if ((module_alias is None) or (len(module_alias) == 0)) else module_alias
                     if (func_name is None) or (module_name is None):
                         response['status'] = '{} is undefined.'.format(func)
@@ -124,12 +129,11 @@ class RestServicesAPI(RestAPI):
                         data[k] = v
                     response['response'] = runner.exec(module_name, func_name, **data)
                 else:
-                    modules = runner.modules
+                    modules = runner.modules.get(root, {})
                     func = kwargs.get('func')
                     param1 = kwargs.get(url_parm_to_alias.get('URL_PARM1', ''))
                     __is__ = (modules.get(func, None) != None) and (param1 == '__dir__')
                     if (__is__) and (db.is_uuid_admin(uuid)):
-                        endpoints = expose.get_endpoints()
                         module_endpoints = endpoints.get(func, {})
                         response['response'] = module_endpoints
                     else:
@@ -165,10 +169,17 @@ class RestServicesAPI(RestAPI):
         url_parm_to_alias = url_parm_analysis.get('->', {})
         url_parm_alias_to_original = url_parm_analysis.get('<-', {})
         try:
-            endpoints = expose.get_endpoints()
-            if (func in runner.modules.keys()) or (func in runner.aliases):
-                func = kwargs.get(url_parm_to_alias.get('URL_PARM1', ''))
-            d = endpoints.get(request.method, {}).get(func, None)
+            d = runner = root = None
+            for root in self.get_plugins():
+                runner = ServiceRunner(root, uuid)
+                endpoints = expose.get_endpoints(for_root=root).get(root, {})
+                if (func in runner.modules.get(root, {}).keys()) or (func in runner.aliases.get(root, [])):
+                    func = kwargs.get(url_parm_to_alias.get('URL_PARM1', ''))
+                d = endpoints.get(request.method, {})
+                d = d.get(func, None)
+                if (d is not None) and (len(d) > 0):
+                    break
+            
             if (d is not None):
                 func_name = d.get('func')
                 module_alias = runner.aliases.get(d.get('module'))
