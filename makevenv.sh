@@ -5,14 +5,20 @@ REQS=./requirements.txt
 
 ARRAY=()
 
-PYTHONS=$(whereis python)
-for val in $PYTHONS; do
-    if [[ $val == *"/usr/bin/"* ]]; then
-        if [[ $val != *"-config"* ]]; then
-            ARRAY+=($val)
+find_python(){
+    pythons=$1
+    PYTHONS=$(whereis $pythons)
+    for val in $PYTHONS; do
+        if [[ $val == *"/usr/bin/"* ]]; then
+            if [[ $val != *"-config"* ]]; then
+                ARRAY+=($val)
+            fi
         fi
-    fi
-done
+    done
+}
+
+find_python python
+find_python pyston
 
 PS3="Choose: "
 
