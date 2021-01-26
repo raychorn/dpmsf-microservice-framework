@@ -19,6 +19,35 @@ GET https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc2752
 
 ###
 
+GET https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/github-webhooks/webhooks/?DEBUG=1 HTTP/1.1
+
+###
+
+GET https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/github-webhooks/webhook/600f54f1736fb552c382efdb/?DEBUG=1 HTTP/1.1
+
+###
+
+DELETE https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/github-webhooks/delete-all/?DEBUG=1 HTTP/1.1
+content-type: application/json
+
+{
+}
+
+###
+
+POST https://vyperapi.vyperlogix.com/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/___webhook___/?DEBUG=11 HTTP/1.1
+content-type: application/json
+
+{
+    "args": [1,2,3,4,5,6],
+    "name1": "one",
+    "name2": "two",
+    "name3": "three",
+    "name4": "four"
+}
+
+###
+
 GET http://127.0.0.1:9000/rest/services/4a1bf01e-0693-48c5-a52b-fc275205c1d8/__directory__/?DEBUG=1 HTTP/1.1
 
 ###
