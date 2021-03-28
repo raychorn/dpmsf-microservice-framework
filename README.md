@@ -10,6 +10,8 @@ Under-cut AWS for RESTful Lambda Functions
     - [AWS LAMDBA's](#aws-lamdbas)
     - [Java or any other language other than Python](#java-or-any-other-language-other-than-python)
     - [Docker Support](#docker-support)
+      - [Docker .env](#docker-env)
+      - [Update via git](#update-via-git)
     - [URL Parameter Mapper](#url-parameter-mapper)
     - [Module Aliasing](#module-aliasing)
     - [Function Aliasing](#function-aliasing)
@@ -100,6 +102,27 @@ docker pull raychorn/microservices-framework:0.7.0
 login to the docker container as root, there is no password.
 
 Issue the following command to refresh the git clone:
+
+#### Docker .env
+
+```
+# MongoDB
+MONGO_URL=mongodb://mongodb:27017
+MONGO_INITDB_ROOT_USERNAME=your-username-goes-here
+MONGO_INITDB_ROOT_PASSWORD=your-password-goes-here
+MONGO_INITDB_DATABASE=admin
+MONGO_REPLICA_SET_NAME=rs0
+MONGO_AUTH_MECHANISM=SCRAM-SHA-256
+
+ADMIN_ID=your-uuid-goes-here
+SECRETS=
+PYTHONPATH=.:/workspaces/microservices-framework/microservices-framework/python_lib3/vyperlogix38.zip:/workspaces/microservices-framework/microservices-framework/.venv387/lib/python3.8/site-packages
+DJANGO_LOG_LEVEL=INFO
+VYPERAPI_URL=10.5.0.6:9000
+plugins=.:/workspaces/plugins/admin-plugins # dot means the default, all others delimited by ":" adds more directories to the list.
+```
+
+#### Update via git
 
 ```
 git pull origin main
