@@ -2,6 +2,8 @@
 
 Under-cut AWS for RESTful Lambda Functions
 
+Notice: Vyper Logix Corp has pulled its proprietary code from this Open Source Project.  Previously, Vyper Logix Corp had graciously provided sourceless code.
+
 ## Table of Contents
 
 - [Dynamic Pluggable Microservices Framework - Deploy your own AWS LAMBDA's](#dynamic-pluggable-microservices-framework---deploy-your-own-aws-lambdas)
