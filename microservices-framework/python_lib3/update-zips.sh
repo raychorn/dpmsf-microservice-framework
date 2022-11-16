@@ -1,9 +1,4 @@
 #!/bin/bash
 
-zip_file=python_lib3.zip
-wget -O ./$zip_file  https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fraychorn%2Fmicroservices-fram>
-
-if [[ -f $zip_file ]]
-then
-    echo "Found $zip_file"
-fi
+echo "this directory was redacted due to the proprietary nature of this part of the system."
+echo "the files in this directory are "(c). Copyright, Vyper Logix Corp" and have been withdrawn."
