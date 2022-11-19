@@ -2,7 +2,11 @@
 
 Under-cut AWS for RESTful Lambda Functions
 
+Support Contracts are available upon request via raychorn@vyperlogix.net
+
 Notice: Vyper Logix Corp has pulled its proprietary code from this Open Source Project.  Previously, Vyper Logix Corp had graciously provided sourceless code.
+
+Full Dockerization for Docker or microk8s are available with a suitable support contract.  Docker builds for "python:3.10-slim-buster" are preferred for this framework.
 
 ## Table of Contents
 
@@ -612,4 +616,4 @@ Those wishing to deploy this Framework on their own can use oAuth or TOTP or any
 
 ---
 
-(c). Copyright Ray C Horn, All Rights Reserved.
+(c). Copyright Vyper Logix Corp, All Rights Reserved.
